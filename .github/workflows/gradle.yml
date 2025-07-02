@@ -32,11 +32,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: silabs-pti
-          path: silabs-pti/build/libs/*.jar
-          overwrite: true
-      - name: Archive license file
-        uses: actions/upload-artifact@v4
-        with:
-          name: silabs-pti
-          path: LICENSE.txt
+          path: |
+            silabs-pti/build/libs/*.jar
+            LICENSE.txt
           overwrite: true
