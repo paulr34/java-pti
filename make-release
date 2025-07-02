@@ -10,6 +10,10 @@ rm -f release/*
 echo "Download artifacts from github..."
 gh run download -n silabs-pti -D release/
 
+echo "Flatten the structure..."
+mv release/silabs-pti/build/libs/* release/
+rm -rf release/silabs-pti
+
 echo "Add jar files without the version in their names..."
 cp release/silabs-pti-lib-${VERSION}.jar release/silabs-pti-lib.jar
 cp release/silabs-pti-${VERSION}.jar release/silabs-pti.jar
