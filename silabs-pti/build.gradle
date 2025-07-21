@@ -3,6 +3,7 @@ import java.nio.file.Paths
 plugins {
   id 'application'
   id 'java'
+  id "biz.aQute.bnd.builder" version "7.0.0"
 }
 
 project.ext.set('archiveName', 'silabs-pti-lib')
@@ -28,7 +29,7 @@ java {
   withJavadocJar()
   withSourcesJar()
   toolchain {
-    languageVersion = JavaLanguageVersion.of(11)
+    languageVersion = JavaLanguageVersion.of(21)
   }   
 }
 
@@ -58,6 +59,19 @@ jar {
   archiveVersion = project.silabsPtiVersion
   manifest {
     attributes(project.manifestMap)
+  }
+    // OSGi metadata using BND
+  bundle {
+    bnd(
+      "Bundle-Name": "silabs-pti-lib",
+      "Bundle-Vendor": "Silicon Labs",
+      "Bundle-SymbolicName": "com.silabs.external.silabs_pti",
+      "Bundle-Version": project.silabsPtiVersion,
+      "Bundle-RequiredExecutionEnvironment": "JavaSE-11",
+      "Bundle-ActivationPolicy": "lazy",
+      "Main-Class": project.mainClass,
+      "-exportcontents": "com.silabs.pti.*"
+    )
   }
 }
 
